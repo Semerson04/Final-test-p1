@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapid Coach Go - Tennis Coaching Made Simple</title>
+    <style>
+        :root {
+            --primary-blue: #0047AB;
+            --accent-purple: #8A2BE2;
+            --grass-court: #8FA382;
+            --court-line: rgba(255, 255, 255, 0.6);
+            --text-dark: #1E293B;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            /* Grass court light green background with subtle lawn stripes */
+            background-color: var(--grass-court);
+            background-image: repeating-linear-gradient(
+                90deg,
+                #8FA382 0px,
+                #8FA382 40px,
+                #859978 40px,
+                #859978 80px
+            );
+            color: var(--text-dark);
+            line-height: 1.5;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background: var(--white);
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-blue);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .brand-logo {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary-blue) !important;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-logo span {
+            color: var(--accent-purple) !important;
+        }
+
+        .hero {
+            padding: 35px 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.92);
+            margin: 20px 15px;
+            border-radius: 16px;
+            border: 2px solid var(--white);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        h1 span {
+            color: var(--accent-purple);
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #475569;
+            margin-bottom: 25px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-purple);
+            color: var(--white);
+        }
+
+        .btn:active {
+            opacity: 0.85;
+        }
+
+        .image-container {
+            margin: 20px auto 0 auto;
+            max-width: 320px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 3px solid var(--white);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        section {
+            padding: 25px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.8);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .problem-card {
+            background: #F8FAFC;
+            padding: 15px;
+            border-left: 4px solid var(--accent-purple);
+            margin-bottom: 12px;
+            border-radius: 6px;
+            font-style: italic;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .steps-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .steps-list li {
+            counter-increment: step-counter;
+            background: #F8FAFC;
+            margin-bottom: 12px;
+            padding: 15px 15px 15px 50px;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+
+        .steps-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-purple);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .pricing-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .price-card {
+            background: #F8FAFC;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            border: 2px solid transparent;
+        }
+
+        .price-card.featured {
+            border-color: var(--accent-purple);
+            background: var(--white);
+        }
+
+        .price-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-purple);
+            margin: 10px 0;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        #thankYouMessage {
+            display: none;
+            background: #D1E7DD;
+            color: #0F5132;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* --- DEMO APP MODAL STYLES --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #777;
+            cursor: pointer;
+        }
+
+        .booking-item {
+            background: #F1F5F9;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .source-badge {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 12px;
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        .badge-whatsapp { background: #25D366; }
+        .badge-instagram { background: #E1306C; }
+        .badge-phone { background: #0047AB; }
+        .badge-walkin { background: #8A2BE2; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-logo">Rapid Coach <span>Go</span></div>
+    </header>
+
+    <div class="hero">
+        <h1>All Your Tennis Bookings in <span>One Place</span></h1>
+        <p>Stop juggling WhatsApp, Instagram DMs, and phone calls. Manage your racket sports coaching effortlessly.</p>
+        
+        <div class="btn-group">
+            <button onclick="openDemo()" class="btn btn-primary">Try the Demo</button>
+            <a href="#waitlist" class="btn btn-accent">Join the Waiting List</a>
+        </div>
+
+        <div class="image-container">
+            <img src="https://images.unsplash.com/photo-1622163642115-4c046af6c562?auto=format&fit=crop&w=600&q=80" alt="Tennis player in action">
+        </div>
+    </div>
+
+    <section>
+        <div class="content-card">
+            <h2>The Struggle is Real</h2>
+            <div class="problem-card">"I missed a client's WhatsApp message because it got buried under group chats, and now they booked with someone else."</div>
+            <div class="problem-card">"Trying to match manual bank transfers with Instagram DM requests is driving me crazy every single night."</div>
+        </div>
+
+        <div class="content-card">
+            <h2>How It Works</h2>
+            <ul class="steps-list">
+                <li><strong>Connect Your Channels:</strong> Link your phone inquiries, social DMs, and walk-ins instantly.</li>
+                <li><strong>Centralize Schedule:</strong> All bookings sync automatically into a single, clean calendar.</li>
+                <li><strong>Coach & Grow:</strong> Spend less time organizing admin and more time hitting courts.</li>
+            </ul>
+        </div>
+
+        <div class="content-card">
+            <h2>Simple Pricing</h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>Pay As You Go</h3>
+                    <div class="price">€2.50</div>
+                    <p>Per confirmed booking. No hidden setup fees.</p>
+                </div>
+                <div class="price-card featured">
+                    <h3>Monthly Unlimited</h3>
+                    <div class="price">€10</div>
+                    <p>Per month. Best for busy coaches managing full schedules.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card" id="waitlist">
+            <h2>Join the Waiting List</h2>
+            <form id="waitlistForm" onsubmit="handleWaitlist(event)">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Your Email Address" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Secure My Spot</button>
+            </form>
+            <div id="thankYouMessage">🎉 Thank you for joining! We'll notify you when we launch.</div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE DEMO APP POPUP -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeDemo()">&times;</span>
+            <header style="border:none; padding: 5px 0 15px 0; background: transparent; box-shadow: none;">
+                <div class="brand-logo">Rapid Coach <span>Go App</span></div>
+            </header>
+            <h3 style="color: var(--primary-blue); font-size: 1.1rem; margin-bottom: 10px;">Live Incoming Bookings</h3>
+            
+            <div class="booking-item">
+                <div>
+                    <strong>Alex R.</strong> (Tennis)<br>
+                    <small>Today @ 4:00 PM</small>
+                </div>
+                <span class="source-badge badge-whatsapp">WhatsApp</span>
+            </div>
+
+            <div class="booking-item">
+                <div>
+                    <strong>Maria S.</strong> (Padel)<br>
+                    <small>Tomorrow @ 10:00 AM</small>
+                </div>
+                <span class="source-badge badge-instagram">Instagram</span>
+            </div>
+
+            <div class="booking-item">
+                <div>
+                    <strong>David K.</strong> (Tennis)<br>
+                    <small>Fri @ 2:30 PM</small>
+                </div>
+                <span class="source-badge badge-phone">Phone Call</span>
+            </div>
+
+            <div class="booking-item">
+                <div>
+                    <strong>Sarah L.</strong> (Padel)<br>
+                    <small>Sat @ 11:00 AM</small>
+                </div>
+                <span class="source-badge badge-walkin">Walk-in</span>
+            </div>
+
+            <button onclick="closeDemo()" class="btn btn-accent" style="width:100%; margin-top: 15px;">Close Prototype</button>
+        </div>
+    </div>
+
+    <script>
+        // Waitlist Form Function
+        function handleWaitlist(event) {
+            event.preventDefault();
+            document.getElementById('waitlistForm').style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'block';
+        }
+
+        // Demo App Modal Functions
+        function openDemo() {
+            document.getElementById('demoModal').style.display = 'flex';
+        }
+
+        function closeDemo() {
+            document.getElementById('demoModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
